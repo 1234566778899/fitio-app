@@ -1,0 +1,29 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Soporte – Fitio</title><link rel="icon" href="img/icon.png"><link rel="stylesheet" href="style.css"></head><body><main>
+<header><img src="img/icon.png" alt=""><a href="index.html">Fitio</a><nav><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a><a href="soporte.html">Soporte</a></nav></header>
+<h1>Soporte</h1><p class="muted">¿Tienes un problema o una pregunta? Escríbenos y te responderemos a tu correo.</p>
+<div class="card"><h3>Preguntas frecuentes</h3>
+<p><b>¿Cómo cancelo Plus?</b> Ajustes de iOS › tu nombre › Suscripciones › Fitio.</p>
+<p><b>¿Cómo canjeo un código?</b> En la app: Perfil › Canjear código.</p>
+<p><b>¿Cómo elimino mi cuenta?</b> En la app: Perfil › Cuenta y seguridad › Eliminar cuenta y datos.</p>
+<p><b>¿Cuántos análisis de fotos tengo?</b> 5 al día gratis y 30 con Plus. Los análisis fallidos no cuentan.</p></div>
+<form class="card" id="f"><h3>Contáctanos</h3>
+<label for="email">Tu correo</label><input id="email" type="email" required maxlength="200" autocomplete="email">
+<label for="topic">Tema</label><select id="topic"><option value="cuenta">Mi cuenta</option><option value="pago">Suscripción o pago</option><option value="ia">Análisis con IA</option><option value="datos">Mis datos / privacidad</option><option value="otro">Otro</option></select>
+<label for="msg">Mensaje</label><textarea id="msg" rows="5" required minlength="5" maxlength="4000"></textarea>
+<p><button class="btn" type="submit">Enviar</button> <span id="st" class="muted" role="status"></span></p></form>
+<footer>© 2026 Fitio</footer></main>
+<script>
+document.getElementById('f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const st = document.getElementById('st'); st.textContent = 'Enviando…';
+  try {
+    const r = await fetch('https://nhmlcnibgpoxmfxcoucq.supabase.co/rest/v1/support_requests', {
+      method: 'POST',
+      headers: { 'apikey': 'sb_publishable_W4HiZK9wPdW9ctmYXTSyPw_oReiwluN', 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ email: email.value, topic: topic.value, message: msg.value })
+    });
+    if (!r.ok) throw new Error();
+    e.target.reset(); st.textContent = '¡Gracias! Te responderemos pronto.';
+  } catch { st.textContent = 'No se pudo enviar. Inténtalo de nuevo.'; }
+});
+</script></body></html>
